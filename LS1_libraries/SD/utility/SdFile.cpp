@@ -200,7 +200,7 @@ void SdFile::dirName(const dir_t& dir, char* name) {
  */
 uint32_t SdFile::ls(uint8_t flags, uint8_t indent) {
   dir_t* p;
-  uint32_t freeSpace = 0;
+  double usedSpace;
 
   rewind();
   while ((p = readDirCache())) {
@@ -229,19 +229,24 @@ uint32_t SdFile::ls(uint8_t flags, uint8_t indent) {
     if (!DIR_IS_SUBDIR(p) && (flags & LS_SIZE)) {
       Serial.print(' ');
       Serial.print(p->fileSize);
-      freeSpace += p->fileSize;
+      usedSpace += p->fileSize / 1024.0 / 1024.0;
+      Serial.print(" used:"); Serial.println(usedSpace);
     }
-    Serial.println();
 
     // list subdirectory content if requested
     if ((flags & LS_R) && DIR_IS_SUBDIR(p)) {
       uint16_t index = curPosition()/32 - 1;
       SdFile s;
-      if (s.open(this, index, O_READ)) freeSpace += s.ls(flags, indent + 2);
+      if (s.open(this, index, O_READ)){
+        double subDirSpace = s.ls(flags, indent + 2);
+        Serial.print("subdirectory:"); Serial.println(subDirSpace);
+        usedSpace += subDirSpace;
+        Serial.print("usedS:"); Serial.println(usedSpace);
+      }
       seekSet(32 * (index + 1));
     }
   }
-  return freeSpace;
+  return (uint32_t) usedSpace;
 }
 
 //------------------------------------------------------------------------------
