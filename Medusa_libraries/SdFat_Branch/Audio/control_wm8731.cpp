@@ -25,8 +25,8 @@
  */
 
 #include "control_wm8731.h"
-#include "Wire.h"
 //#include "Wire.h"
+#include "i2c_t3.h"
 
 #define WM8731_I2C_ADDR 0x1A
 //#define WM8731_I2C_ADDR 0x1B

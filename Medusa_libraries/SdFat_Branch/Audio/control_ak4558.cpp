@@ -6,8 +6,8 @@
  */
 
 #include "control_ak4558.h"
-#include "Wire.h"
 //#include "Wire.h"
+#include "i2c_t3.h"
 
 void AudioControlAK4558::initConfig(void)
 {

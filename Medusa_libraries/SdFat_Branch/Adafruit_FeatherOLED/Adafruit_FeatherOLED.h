@@ -37,8 +37,7 @@
 #ifndef _Adafruit_FeatherOLED_H_
 #define _Adafruit_FeatherOLED_H_
 
-//#include <Wire.h>
-#include <Wire.h>
+#include <i2c_t3.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 

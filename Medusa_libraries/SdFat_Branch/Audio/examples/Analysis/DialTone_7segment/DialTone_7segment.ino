@@ -7,8 +7,8 @@
 // This example code is in the public domain.
 
 #include <Audio.h>
-#include <Wire.h>
 //#include <Wire.h>
+#include <i2c_t3.h>
 #include <SPI.h>
 #include <SD.h>
 #include <SerialFlash.h>
