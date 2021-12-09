@@ -22,7 +22,7 @@ All text above, and the splash screen below must be included in any redistributi
 #endif
 #include <stdlib.h>
 
-#include <Wire.h>
+#include <i2c_t3.h>
 
 #include "Adafruit_GFX.h"
 #include "Adafruit_SSD1306.h"
@@ -506,10 +506,7 @@ void Adafruit_SSD1306::display(void) {
   else
   {
     // save I2C bitrate
-#ifndef __SAM3X8E__
-    uint8_t twbrbackup = TWBR;
-    TWBR = 12; // upgrade to 400KHz!
-#endif
+
 
     //Serial.println(TWBR, DEC);
     //Serial.println(TWSR & 0x3, DEC);
@@ -526,9 +523,7 @@ void Adafruit_SSD1306::display(void) {
       i--;
       Wire.endTransmission();
     }
-#ifndef __SAM3X8E__
-    TWBR = twbrbackup;
-#endif
+
   }
 }
 
